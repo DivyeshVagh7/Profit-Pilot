@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "profit-pilot"
+version = "0.1.0"
+description = "Student-friendly crypto RL trading project scaffold inspired by FinRL_Crypto."
+readme = "README.md"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]

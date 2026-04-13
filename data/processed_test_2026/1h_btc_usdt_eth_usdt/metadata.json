@@ -1,0 +1,32 @@
+{
+  "symbols": [
+    "BTC/USDT",
+    "ETH/USDT"
+  ],
+  "feature_columns_per_asset": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "macd",
+    "macd_signal",
+    "macd_hist",
+    "rsi",
+    "cci",
+    "adx"
+  ],
+  "n_assets": 2,
+  "n_features_per_asset": 11,
+  "price_array_shape": [
+    2416,
+    2
+  ],
+  "tech_array_shape": [
+    2416,
+    22
+  ],
+  "timeframe": "1h",
+  "since": "2026-01-01T00:00:00Z",
+  "until": "2026-04-13T00:00:00Z"
+}

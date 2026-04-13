@@ -1,0 +1,12 @@
+ccxt==4.5.48
+gymnasium==0.29.1
+stable-baselines3==2.3.2
+sb3-contrib==2.3.0
+pandas==2.2.2
+numpy==1.26.4
+matplotlib==3.8.4
+pyyaml==6.0.1
+python-dotenv==1.0.1
+ta==0.11.0
+pyarrow==16.1.0
+
