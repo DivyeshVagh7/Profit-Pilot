@@ -1,0 +1,29 @@
+{
+  "model_path": "/content/drive/MyDrive/ProfitPilot/models/colab_5m_2024_2026/profit_pilot_ppo_5m_t4.zip",
+  "model_name": "profit_pilot_ppo_5m_t4",
+  "use_lstm": false,
+  "device": "cuda",
+  "total_timesteps": 300000,
+  "symbols": [
+    "BTC/USDT",
+    "ETH/USDT"
+  ],
+  "timeframe": "5m",
+  "train_window": [
+    "2024-01-01T00:00:00Z",
+    "2026-01-01T00:00:00Z"
+  ],
+  "test_window": [
+    "2026-01-01T00:00:00Z",
+    "2026-04-20T23:55:00Z"
+  ],
+  "lookback": 96,
+  "train_price_array_shape": [
+    210494,
+    2
+  ],
+  "train_tech_array_shape": [
+    210494,
+    22
+  ]
+}

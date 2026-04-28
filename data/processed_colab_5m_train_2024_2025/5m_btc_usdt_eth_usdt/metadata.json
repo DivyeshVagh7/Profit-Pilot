@@ -1,0 +1,36 @@
+{
+  "label": "train_2024_2025",
+  "symbols": [
+    "BTC/USDT",
+    "ETH/USDT"
+  ],
+  "feature_columns_per_asset": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "macd",
+    "macd_signal",
+    "macd_hist",
+    "rsi",
+    "cci",
+    "adx"
+  ],
+  "n_assets": 2,
+  "n_features_per_asset": 11,
+  "price_array_shape": [
+    210494,
+    2
+  ],
+  "tech_array_shape": [
+    210494,
+    22
+  ],
+  "timeframe": "5m",
+  "source_since": "2024-01-01T00:00:00Z",
+  "source_until": "2026-01-01T00:00:00Z",
+  "first_timestamp_after_warmup": "2024-01-01 02:45:00+00:00",
+  "last_timestamp": "2025-12-31 23:55:00+00:00",
+  "normalization": "standard_score_using_train_stats"
+}
