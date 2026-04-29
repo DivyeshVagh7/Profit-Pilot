@@ -106,7 +106,7 @@ See `reports/colab_5m_2024_2026/profit_pilot_ppo_5m_t4_test_metrics.json` for fu
 
 ## 👥 Authors & Acknowledgements
 
-- Add your team members, advisors, and contributors here.
+- Divyesh, Utsker, Smit
 
 ## 📄 License
 

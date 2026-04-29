@@ -1,0 +1,36 @@
+{
+  "label": "test_warmup_2026_0331_0428",
+  "symbols": [
+    "BTC/USDT",
+    "ETH/USDT"
+  ],
+  "feature_columns_per_asset": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "macd",
+    "macd_signal",
+    "macd_hist",
+    "rsi",
+    "cci",
+    "adx"
+  ],
+  "n_assets": 2,
+  "n_features_per_asset": 11,
+  "price_array_shape": [
+    8032,
+    2
+  ],
+  "tech_array_shape": [
+    8032,
+    22
+  ],
+  "timeframe": "5m",
+  "source_since": "2026-03-31T00:00:00Z",
+  "source_until": "2026-04-28T00:00:00Z",
+  "first_timestamp_after_indicator_warmup": "2026-03-31 02:45:00+00:00",
+  "last_timestamp": "2026-04-28 00:00:00+00:00",
+  "normalization": "standard_score_using_train_stats"
+}
