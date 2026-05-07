@@ -12,7 +12,7 @@ Use `FinRL_Crypto` as the main academic base, then borrow selected ideas from th
 
 ## Repo 1: oyi77/Crypto-RL-Trading-Bot
 
-Local copy: `references/Crypto-RL-Trading-Bot`
+Reference repository: <https://github.com/oyi77/Crypto-RL-Trading-Bot>
 
 ### What it is good at
 
@@ -40,7 +40,7 @@ Local copy: `references/Crypto-RL-Trading-Bot`
 
 ## Repo 2: notadamking/RLTrader
 
-Local copy: `references/RLTrader`
+Reference repository: <https://github.com/notadamking/RLTrader>
 
 ### What it is good at
 
@@ -74,7 +74,7 @@ Local copy: `references/RLTrader`
 
 ## Repo 3: AI4Finance-Foundation/FinRL_Crypto
 
-Local copy: `references/FinRL_Crypto`
+Reference repository: <https://github.com/AI4Finance-Foundation/FinRL_Crypto>
 
 ### Why this is the best base
 
@@ -111,7 +111,7 @@ Local copy: `references/FinRL_Crypto`
 
 ## Repo 4: NickKaparinos/Automated-Cryptocurrency-trading-using-Deep-RL
 
-Local copy: `references/Automated-Cryptocurrency-trading-using-Deep-RL`
+Reference repository: <https://github.com/NickKaparinos/Automated-Cryptocurrency-trading-using-Deep-RL>
 
 ### What it is good at
 

@@ -108,6 +108,8 @@ The base design uses a continuous action vector with one action per asset.
 - negative value: sell that asset
 - near zero: hold
 
+In the current implementation, action magnitude is interpreted as a notional trade fraction, not a raw coin quantity. For example, a positive action buys up to `action x max_trade_fraction x portfolio_value`, subject to cash, fees, and position caps. This keeps the action interface consistent across assets with very different prices.
+
 ### Why continuous actions are used
 
 - this matches the main design of `FinRL_Crypto`
@@ -241,7 +243,7 @@ We do not claim guaranteed profit. The expected outcomes are:
 
 At least one of the following will be implemented:
 
-1. Multi-timeframe input such as `15m + 1h`
+1. Additional 5-minute market-regime features
 2. Sentiment score as an extra state feature
 3. Drawdown-based risk halt
 4. LSTM-based recurrent PPO

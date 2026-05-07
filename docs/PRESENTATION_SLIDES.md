@@ -62,7 +62,7 @@ What to say: The project follows a clear end-to-end pipeline from raw data to fi
 
 - data source: Binance OHLCV candles through CCXT
 - assets: initially `BTC/USDT` and `ETH/USDT`
-- timeframe: start with `1h`
+- timeframe: `5m`
 - date range: for example `2022-01-01` to `2024-12-31`
 
 What to say: We start with a small but realistic dataset so the project remains manageable and easy to explain.

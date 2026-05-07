@@ -44,3 +44,57 @@ def load_processed_bundle(processed_root: str | Path, timeframe: str, symbols: l
         "timestamps": timestamps,
         "metadata": metadata,
     }
+
+
+def slice_bundle_for_evaluation_window(
+    bundle: dict,
+    evaluation_start: str,
+    lookback: int,
+    evaluation_end: str | None = None,
+) -> dict:
+    timestamps = pd.to_datetime(bundle["timestamps"]["datetime"], utc=True).reset_index(drop=True)
+    start_timestamp = pd.Timestamp(evaluation_start)
+    start_index = int(timestamps.searchsorted(start_timestamp, side="left"))
+    slice_start = start_index - lookback + 1
+    if slice_start < 0:
+        raise ValueError(
+            "Not enough warm-up rows before evaluation_start. "
+            "Move data.since earlier or lower environment.lookback."
+        )
+
+    if evaluation_end is None:
+        slice_end = len(timestamps)
+    else:
+        end_timestamp = pd.Timestamp(evaluation_end)
+        slice_end = int(timestamps.searchsorted(end_timestamp, side="right"))
+        if slice_end <= start_index:
+            raise ValueError("evaluation_end must be after evaluation_start")
+
+    sliced_timestamps = timestamps.iloc[slice_start:slice_end].reset_index(drop=True)
+    first_eval_timestamp = sliced_timestamps.iloc[lookback - 1]
+    metadata = dict(bundle["metadata"])
+    metadata.update(
+        {
+            "evaluation_start": evaluation_start,
+            "evaluation_end": evaluation_end,
+            "first_evaluation_timestamp": str(first_eval_timestamp),
+            "warmup_rows_in_slice": int(lookback - 1),
+            "price_array_shape": list(bundle["price_array"][slice_start:slice_end].shape),
+            "tech_array_shape": list(bundle["tech_array"][slice_start:slice_end].shape),
+        }
+    )
+    return {
+        **bundle,
+        "price_array": bundle["price_array"][slice_start:slice_end],
+        "tech_array": bundle["tech_array"][slice_start:slice_end],
+        "timestamps": pd.DataFrame({"datetime": sliced_timestamps.astype(str)}),
+        "metadata": metadata,
+    }
+
+
+def slice_bundle_for_evaluation_start(bundle: dict, evaluation_start: str, lookback: int) -> dict:
+    return slice_bundle_for_evaluation_window(
+        bundle=bundle,
+        evaluation_start=evaluation_start,
+        lookback=lookback,
+    )

@@ -4,14 +4,17 @@ project:
 
 data:
   raw_dir: data/raw_local_5m_2024_2026
-  processed_dir: data/processed_local_5m_train_2024_2026_0330
+  processed_dir: data/processed_local_5m_eval_2026_0401_0428
   symbols:
     - BTC/USDT
     - ETH/USDT
   timeframe: 5m
-  since: "2024-01-01T00:00:00Z"
-  until: "2026-03-30T23:55:00Z"
+  since: "2026-03-31T00:00:00Z"
+  until: "2026-04-28T00:00:00Z"
   download_limit: 1000
+  normalization_stats_dir: data/processed_local_5m_train_2024_2026_0330/5m_btc_usdt_eth_usdt
+  evaluation_start: "2026-04-01T00:00:00Z"
+  evaluation_end: "2026-04-19T23:55:00Z"
 
 environment:
   lookback: 96
@@ -39,8 +42,8 @@ environment:
   max_drawdown_pct: 0.25
   min_trade_quantity: 0.0001
   cooldown_steps: 6
-  random_start: true
-  episode_length: 2880
+  random_start: false
+  episode_length: null
   trade_deadband: 0.10
   rebalance_threshold: 0.08
   min_trade_notional: 50.0
@@ -58,5 +61,5 @@ training:
   device: auto
   use_lstm: false
   model_dir: models/local_5m_cash_allocation
-  report_dir: reports/local_5m_cash_allocation
+  report_dir: reports/local_5m_cash_allocation/val_a_2026_0401_0419
   target_kl: 0.02

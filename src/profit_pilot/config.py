@@ -24,6 +24,9 @@ class DataSection:
     since: str
     until: str
     download_limit: int
+    normalization_stats_dir: str | None = None
+    evaluation_start: str | None = None
+    evaluation_end: str | None = None
 
 
 @dataclass
@@ -48,6 +51,17 @@ class EnvironmentSection:
     max_drawdown_pct: float
     min_trade_quantity: float
     cooldown_steps: int
+    random_start: bool = False
+    episode_length: int | None = None
+    trade_deadband: float = 0.0
+    min_trade_notional: float = 0.0
+    turnover_penalty_weight: float = 0.0
+    action_mode: str = "target_allocation"
+    alpha_reward_weight: float = 0.25
+    drawdown_penalty_weight: float = 0.05
+    risk_halt_penalty_weight: float = 0.0
+    max_gross_exposure: float = 0.80
+    rebalance_threshold: float = 0.03
 
 
 @dataclass
@@ -64,6 +78,7 @@ class TrainingSection:
     use_lstm: bool
     model_dir: str
     report_dir: str
+    target_kl: float | None = None
 
 
 @dataclass

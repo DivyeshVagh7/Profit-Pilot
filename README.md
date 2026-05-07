@@ -1,6 +1,6 @@
 # Profit-Pilot: Reinforcement Learning for Cryptocurrency Trading
 
-Profit-Pilot is a research-grade framework for developing, training, and evaluating reinforcement learning (RL) agents for multi-asset cryptocurrency portfolio management. It is designed for academic, educational, and practical experimentation with RL-based trading strategies, using real historical market data and robust evaluation metrics.
+Profit-Pilot is a research-oriented framework for developing, training, and evaluating reinforcement learning (RL) agents for multi-asset cryptocurrency portfolio management. It uses real historical market data, a custom Gymnasium environment, reproducible feature bundles, and benchmark-aware evaluation artifacts.
 
 ---
 
@@ -27,6 +27,7 @@ Build a reinforcement learning agent that learns a profitable portfolio-allocati
 - Modular pipeline: data, features, environment, agent, evaluation
 - Multi-asset support (BTC, ETH, etc.)
 - Realistic trading constraints (fees, max drawdown, stop-loss, cooldown)
+- Price-agnostic action semantics so high-priced assets like BTC and lower-priced assets like ETH can both be traded correctly
 - PPO baseline (easily extensible to LSTM, other RL algorithms)
 - Academic references and methodology included
 - Ready-to-run Colab and local Jupyter notebooks
@@ -34,7 +35,9 @@ Build a reinforcement learning agent that learns a profitable portfolio-allocati
 
 ## 📊 Example Results
 
-**Colab 5m PPO Agent vs. Equal-Weight Benchmark (2024-2026 test set):**
+The checked-in 5-minute reports are legacy artifacts from before the price-agnostic action fix. Use them for historical comparison only, then retrain with the `_multi_asset` notebook/CLI model names for current results.
+
+**Legacy Colab 5m PPO Agent vs. Equal-Weight Benchmark (2024-2026 test set):**
 
 | Metric                | PPO Agent | Equal-Weight |
 |-----------------------|-----------|--------------|
@@ -71,18 +74,35 @@ See `reports/colab_5m_2024_2026/profit_pilot_ppo_5m_t4_test_metrics.json` for fu
    ```
 2. **Configure API keys:**
    - Copy `.env.example` to `.env` and fill in your Binance API credentials (or use sandbox mode).
-3. **Run a notebook:**
+3. **Build 5m features, train, and evaluate:**
+   ```powershell
+   python -m profit_pilot.features.build_features --config config/project_config_5m_train.yaml
+   python -m profit_pilot.train.train_ppo --config config/project_config_5m_train.yaml
+   python -m profit_pilot.features.build_features --config config/project_config_5m_eval.yaml
+   python -m profit_pilot.train.evaluate_model --config config/project_config_5m_eval.yaml
+   ```
+4. **Or run a notebook:**
    - Open `notebooks/colab_t4_5m_profit_pilot_training.ipynb` or `notebooks/Local Run/Local_run_5m.ipynb` in Jupyter/Colab.
    - Follow the cells to train and evaluate the agent.
 
 ## 🛠️ Main Modules
 
 - `src/profit_pilot/data/download_ohlcv.py` — Download historical OHLCV data
-- `src/profit_pilot/features/build_features.py` — Compute technical indicators
+- `src/profit_pilot/features/build_features.py` — Compute technical indicators and standardized feature arrays
 - `src/profit_pilot/env/multi_crypto_env.py` — Custom multi-asset trading environment
 - `src/profit_pilot/train/train_ppo.py` — PPO agent training loop
 - `src/profit_pilot/train/evaluate_model.py` — Evaluation and metrics
 - `src/profit_pilot/utils/io.py` — I/O utilities
+
+## Current Trading Semantics
+
+The default environment action is a continuous target-allocation vector with one value per asset in `[0, 1]`.
+
+- `action=[0.4, 0.2]` targets roughly 40% BTC, 20% ETH, and 40% cash.
+- Per-asset caps, total gross exposure caps, cash availability, fees, rebalance thresholds, stop-loss, drawdown halt, and cooldown rules are applied by the environment.
+- Repeating the same target allocation should not keep trading unless market drift moves the current weights beyond the rebalance threshold.
+
+This avoids price-scale bias and prevents PPO from paying fees by repeatedly emitting the same buy/sell impulse every 5 minutes.
 
 ## 🧪 Testing
 

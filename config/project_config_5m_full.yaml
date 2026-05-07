@@ -3,14 +3,14 @@ project:
   exchange: binanceus
 
 data:
-  raw_dir: data/raw_local_5m_2024_2026
-  processed_dir: data/processed_local_5m_train_2024_2026_0330
+  raw_dir: data/raw_colab_5m_2024_2026
+  processed_dir: data/processed_colab_5m_full_2024_2026
   symbols:
     - BTC/USDT
     - ETH/USDT
   timeframe: 5m
   since: "2024-01-01T00:00:00Z"
-  until: "2026-03-30T23:55:00Z"
+  until: "2026-04-28T23:55:00Z"
   download_limit: 1000
 
 environment:
@@ -58,5 +58,5 @@ training:
   device: auto
   use_lstm: false
   model_dir: models/local_5m_cash_allocation
-  report_dir: reports/local_5m_cash_allocation
+  report_dir: reports/local_5m_cash_allocation/full_window
   target_kl: 0.02

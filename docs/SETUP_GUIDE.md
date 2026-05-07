@@ -79,16 +79,16 @@ Why:
 ### Commands
 
 ```powershell
-python -m profit_pilot.data.download_ohlcv --config config/project_config.yaml
+python -m profit_pilot.data.download_ohlcv --config config/project_config_5m_train.yaml
 ```
 
-This will download OHLCV candles for the symbols listed in `config/project_config.yaml`.
+This will download OHLCV candles for the symbols listed in the 5m training config.
 
 ### If Binance access is blocked
 
 Use one of these backups:
 
-1. Change `exchange` in `config/project_config.yaml` from `binance` to `binanceus`
+1. Keep `exchange` as `binanceus` or replace it with another CCXT exchange that lists the same symbols
 2. Replace the downloader source with another CCXT-supported exchange
 3. Use CSV data from CryptoDataDownload or Kaggle, then adapt the feature builder
 
@@ -121,7 +121,7 @@ Testnet is better than real trading for demonstration because no real funds are 
 
 ## Step 6: Edit the project configuration
 
-Open `config/project_config.yaml` and adjust:
+Open `config/project_config_5m_train.yaml` and adjust:
 
 - symbols
 - timeframe
@@ -130,33 +130,36 @@ Open `config/project_config.yaml` and adjust:
 - initial cash
 - training timesteps
 
-Recommended first experiment:
+Recommended production experiment:
 
 - symbols: `BTC/USDT`, `ETH/USDT`
-- timeframe: `1h`
-- since: `2022-01-01`
-- until: `2024-12-31`
-- lookback: `50`
+- timeframe: `5m`
+- train window: `2024-01-01` to `2026-04-19`
+- evaluation window: `2026-04-20` to `2026-04-28`
+- lookback: `96`
 
 ## Step 7: Build technical indicators
 
 After raw data download:
 
 ```powershell
-python -m profit_pilot.features.build_features --config config/project_config.yaml
+python -m profit_pilot.features.build_features --config config/project_config_5m_train.yaml
 ```
 
 This step creates:
 
 - aligned timestamps
 - close-price array
-- technical-feature array
+- standardized technical-feature array
+- `tech_mean.npy` and `tech_std.npy` normalization stats
 - metadata file describing symbols and feature columns
+
+For out-of-sample test bundles, point `data.normalization_stats_dir` at the training processed bundle so evaluation uses the same feature scale as training.
 
 ## Step 8: Train the PPO baseline
 
 ```powershell
-python -m profit_pilot.train.train_ppo --config config/project_config.yaml
+python -m profit_pilot.train.train_ppo --config config/project_config_5m_train.yaml
 ```
 
 This is the recommended baseline for the project presentation.
@@ -173,7 +176,8 @@ The baseline now includes deterministic risk controls and a volatility-aware rew
 ## Step 9: Evaluate and create outputs
 
 ```powershell
-python -m profit_pilot.train.evaluate_model --config config/project_config.yaml
+python -m profit_pilot.features.build_features --config config/project_config_5m_eval.yaml
+python -m profit_pilot.train.evaluate_model --config config/project_config_5m_eval.yaml
 ```
 
 This will save:
@@ -186,8 +190,8 @@ This will save:
 When the baseline works, then try recurrent PPO:
 
 ```powershell
-python -m profit_pilot.train.train_ppo --config config/project_config.yaml --use-lstm
-python -m profit_pilot.train.evaluate_model --config config/project_config.yaml --use-lstm
+python -m profit_pilot.train.train_ppo --config config/project_config_5m_train.yaml --use-lstm
+python -m profit_pilot.train.evaluate_model --config config/project_config_5m_eval.yaml --use-lstm
 ```
 
 Use this only as an extension, not as the starting point.
@@ -199,20 +203,17 @@ You must not submit a plain copy of an online repo. Add at least one clear impro
 Best options:
 
 1. Add a sentiment score to the state
-2. Add multi-timeframe features such as `15m + 1h`
+2. Add 5-minute market-regime or volatility features
 3. Tune the implemented drawdown halt and stop-loss settings
 4. Add LSTM after the PPO baseline works
 5. Compare the base reward versus the volatility-aware reward
 
 ## Step 12: If you want to run the original FinRL_Crypto pipeline too
 
-The reference copy is already in:
-
-`references/FinRL_Crypto`
-
-Typical reference flow there is:
+Clone the upstream reference repository separately if you want to compare against it:
 
 ```powershell
+git clone https://github.com/AI4Finance-Foundation/FinRL_Crypto references\FinRL_Crypto
 cd references\FinRL_Crypto
 python 0_dl_trainval_data.py
 python 1_optimize_cpcv.py
@@ -220,7 +221,7 @@ python 2_validate.py
 python 4_backtest.py
 ```
 
-Before that, you would need to configure `references/FinRL_Crypto/config_api.py`.
+Before that, configure `references/FinRL_Crypto/config_api.py` in the cloned reference repo.
 
 For your own submission, the root `Profit-Pilot` scaffold is cleaner and easier to explain.
 
@@ -248,9 +249,8 @@ For your own submission, the root `Profit-Pilot` scaffold is cleaner and easier 
 ### Problem: PPO training is too slow
 
 - reduce date range
-- reduce symbols from 2 to 1
 - reduce total timesteps
-- start with `1h` instead of `5m`
+- train locally with `PROFIT_PILOT_TOTAL_TIMESTEPS` set lower first, then run the full 5m experiment on GPU
 
 ### Problem: LSTM is unstable
 
