@@ -1,0 +1,38 @@
+[
+  {
+    "strategy": "agent",
+    "initial_value": 10000.0,
+    "final_value": 10173.08203125,
+    "total_return_pct": 1.7308203125,
+    "annualized_return_pct": 26.1093791104,
+    "annualized_volatility_pct": 18.1363659968,
+    "sharpe": 1.3696047458,
+    "sortino": 1.6780052799,
+    "max_drawdown_pct": 3.7241968675,
+    "calmar": 7.0107408495,
+    "win_rate_pct": 39.5782435386,
+    "total_fees": 11.7765349806,
+    "trade_events": 7150,
+    "mean_gross_exposure_pct": 30.9669142624,
+    "risk_halted": false,
+    "alpha_vs_benchmark_pct": -9.5949609375
+  },
+  {
+    "strategy": "equal_weight_benchmark",
+    "initial_value": 10000.0,
+    "final_value": 11132.578125,
+    "total_return_pct": 11.32578125,
+    "annualized_return_pct": 326.4867374167,
+    "annualized_volatility_pct": 44.0967862539,
+    "sharpe": 3.5092372346,
+    "sortino": 4.4399887145,
+    "max_drawdown_pct": 6.9572748317,
+    "calmar": 46.927388283,
+    "win_rate_pct": 47.5890446187,
+    "total_fees": 0.0,
+    "trade_events": 0,
+    "mean_gross_exposure_pct": 100.0,
+    "risk_halted": false,
+    "alpha_vs_benchmark_pct": 0.0
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "model_zip": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/models/local_5m_2024_2026/profit_pilot_recurrent_ppo_5m_local_2024_2026.zip",
+  "training_summary": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/models/local_5m_2024_2026/profit_pilot_recurrent_ppo_5m_local_2024_2026_training_summary.json",
+  "test_results_csv": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/reports/local_5m_2024_2026/profit_pilot_recurrent_ppo_5m_local_2024_2026_test_2026_0401_0428_results.csv",
+  "test_metrics_json": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/reports/local_5m_2024_2026/profit_pilot_recurrent_ppo_5m_local_2024_2026_test_2026_0401_0428_metrics.json",
+  "combined_analysis_plot": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/reports/local_5m_2024_2026/plots/profit_pilot_recurrent_ppo_5m_local_2024_2026_test_2026_0401_0428_analysis.png",
+  "risk_diagnostics_plot": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/reports/local_5m_2024_2026/plots/profit_pilot_recurrent_ppo_5m_local_2024_2026_test_2026_0401_0428_risk_diagnostics.png",
+  "train_processed_bundle": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/data/processed_local_5m_train_2024_2026_0330/5m_btc_usdt_eth_usdt",
+  "test_processed_bundle": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/data/processed_local_5m_test_2026_0401_0428/5m_btc_usdt_eth_usdt"
+}

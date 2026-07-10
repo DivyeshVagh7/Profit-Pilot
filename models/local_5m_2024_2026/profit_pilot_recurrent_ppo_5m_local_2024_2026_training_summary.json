@@ -1,0 +1,30 @@
+{
+  "model_path": "/Users/dhameliyautskerarjanbhai/Documents/RL_Project/Profit-Pilot/models/local_5m_2024_2026/profit_pilot_recurrent_ppo_5m_local_2024_2026.zip",
+  "model_name": "profit_pilot_recurrent_ppo_5m_local_2024_2026",
+  "use_lstm": true,
+  "device": "cpu",
+  "total_timesteps": 500000,
+  "symbols": [
+    "BTC/USDT",
+    "ETH/USDT"
+  ],
+  "timeframe": "5m",
+  "train_window": [
+    "2024-01-01T00:00:00Z",
+    "2026-03-30T23:55:00Z"
+  ],
+  "test_window": [
+    "2026-04-01T00:00:00Z",
+    "2026-04-28T00:00:00Z"
+  ],
+  "test_warmup_start": "2026-03-31T00:00:00Z",
+  "lookback": 96,
+  "train_price_array_shape": [
+    236126,
+    2
+  ],
+  "train_tech_array_shape": [
+    236126,
+    22
+  ]
+}
